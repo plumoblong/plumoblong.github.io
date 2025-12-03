@@ -3,7 +3,8 @@
    "how to change link color." */
 
 body {
-  background-color: #000;
-  color: #FFF;
-  font-family: Verdana;
+	margin: 16px;
+	background-color: #000;
+	color: #FFF;
+	font-family: Verdana;
 }
