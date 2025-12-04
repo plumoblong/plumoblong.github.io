@@ -3,8 +3,13 @@
    "how to change link color." */
 
 body {
-	margin: 16px;
+	margin: auto;
 	background-color: #000;
 	color: #FFF;
-	font-family: Verdana;
+	width: 35%;
+	text-align: center;
+	align-content: center;
+	font-family: monospace;
+	font-size: large;
+	
 }

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" type="image/png" href="favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="favicon/favicon.svg" />
+    <link rel="shortcut icon" href="favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png" />
+    <link rel="manifest" href="favicon/site.webmanifest" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>plumoblong</title>
+    <link href="/style.css" rel="stylesheet" type="text/css" media="all">
+    <script>
+        async function getLatestRelease() {
+            try {
+                const response = await fetch(
+                    "https://api.github.com/repos/plumoblong/unsubstantial/releases/latest"
+                );
+        
+                if (!response.ok) {
+                    throw new Error("HTTP error! status: ${response.status}");
+                }
+        
+                const data = await response.json();
+        
+                return {
+                    name: data.name,
+                    downloadUrl: data.assets[0]?.browser_download_url || null,
+                    tagName: data.tag_name
+                };
+            } catch (error) {
+                console.error("Error fetching release:", error);
+                return null;
+            }
+        }
+        window.addEventListener("load", async function () {
+            document.getElementById("downloadLatest").addEventListener("click", async function (event) {
+                event.preventDefault(); // stops the default link behavior
+
+                const release = await getLatestRelease();
+
+                if (release?.downloadUrl) {
+                    window.location.href = release.downloadUrl;
+                } else {
+                    alert("Failed to get download URL.");
+                }
+            }); 
+            document.getElementById("version").innerHTML = "version: Windows " + await getLatestRelease().then(release => {
+                return release?.name || "unknown";}); 
+        });
+    </script>
+  </head>
+  <body>
+    <br></br>
+    <br></br>
+	<img src="assets/logo_unsub.png"></img>
+    <br></br>
+    
+    <a href="#" id="downloadLatest" style="color:white; font-size: larger;">download latest</a>
+    <br></br>
+    <a id="version" style="color:gray;">loading...</a>
+    <br></br> 
+    <a>unsubstantial is an addictive arcade shoot with rogue-lite elements and a minimalistic, trippy art-style, 
+    and a lot of eye candy. very inspired by quake and doom, with fast-paced source engine style movement.
+    concider giving it a try, i release updates every couple months or so. have fun!</a>
+    
+    <br></br><a href="https://github.com/plumoblong/unsubstantial" style="color:white;">source code</a>
+
+    <br></br> <a style="font-size: medium;">>þ</a>
+    <br></br> <a style="font-size: small; color: gray;">1.0</a>
+
+    </body>
+    
+</html>
